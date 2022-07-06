@@ -19,6 +19,7 @@ public class GameController : MonoBehaviour
     public GameObject boton_atras;
     public bool bandera =true;
     public bool boton_de_ataque =false;
+    public bool boton_de_defensa = false;
     Character player = new Character(50000, 20, 100, 100, 100, 100, 30);
     Character enemy = new Character(2000, 10, 200, 50, 10, 0, 20);
 
@@ -29,6 +30,11 @@ public class GameController : MonoBehaviour
         int daño1 = enemy.takenDmg(player.attack());
         info_combate.text = "le quitastes  " + daño1 + " puntos de vida al enemigo este ahora tiene " + enemy.vida() + "puntos de vida";
         bandera = false;
+    }
+    public void DefenderComando()
+    {
+        boton_de_defensa = true;
+        
     }
 
     void Start()
@@ -49,6 +55,7 @@ public class GameController : MonoBehaviour
             info_combate.text="Juego terminado";
             }
         else { 
+
            if (bandera == true)
             {
             boton_de_ataque = false;

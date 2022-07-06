@@ -42,6 +42,16 @@ public class Character : MonoBehaviour
     {
         return this.hp;
     }
+    public int velocidad()
+    {
+        return this.vel;
+    }
+    public int comandos_defensa()
+    {
+        int bonificacion= this.def * 2;
+        return bonificacion;
+
+    }
 
 }
 
