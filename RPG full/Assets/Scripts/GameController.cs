@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
-
+using UnityEngine.EventSystems;
 
 public class GameController : MonoBehaviour
 {
@@ -19,8 +19,8 @@ public class GameController : MonoBehaviour
     public GameObject boton_atras;
     public bool bandera =true;
     public bool boton_de_ataque =false;
-    Character player = new Character(3000, 20, 100, 100, 100, 100, 30);
-    Character enemy = new Character(2000, 10, 30, 50, 10, 0, 20);
+    Character player = new Character(50000, 20, 100, 100, 100, 100, 30);
+    Character enemy = new Character(2000, 10, 200, 50, 10, 0, 20);
 
     public void AtacarComando()
     {
@@ -44,12 +44,11 @@ public class GameController : MonoBehaviour
     {
         
 
-        //if (player.vida() == 0 || enemy.vida() == 0)
-            //{
-            //info_combate.text="Juego terminado";
-            //}
-        
-        
+        if (player.vida() <= 0 || enemy.vida() <= 0)
+            {
+            info_combate.text="Juego terminado";
+            }
+        else { 
            if (bandera == true)
             {
             boton_de_ataque = false;
@@ -67,13 +66,14 @@ public class GameController : MonoBehaviour
                 boton_defensa.SetActive(false);
                 boton_objetos.SetActive(false);
                 int daño2 = player.takenDmg(enemy.attack());
-                info_combate.text = "el enemigo le quito  " + daño2 + " puntos de vida a naruto este ahora tiene " + player.vida() + "puntos de vida";
+                vida_actual.text = player.vida() + "";
+                
                 bandera = true;
             }
-
-        
-            
-            
         }
+
+
+
+    }
     }
 
