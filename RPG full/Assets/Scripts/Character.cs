@@ -12,7 +12,7 @@ public class Character : MonoBehaviour
     protected int mag;
     protected int vel;
 
-    public Character(int vida, int mana, int ataque , int defensa , int magia, int resistencia , int velocidad)
+    public Character(int vida, int mana, int ataque, int defensa, int magia, int resistencia, int velocidad)
     {
         this.hp = vida;
         this.mp = mana;
@@ -46,17 +46,26 @@ public class Character : MonoBehaviour
     {
         return this.vel;
     }
-    public int comandos_defensa()
+    public void comandos_defensa(bool fase_actual)
     {
-        int bonificacion= this.def * 2;
-        return bonificacion;
+        if (fase_actual == true)
+        {
+            this.def = this.def * 2;
+        }
+        else
+        {
+            this.def = this.def * (1 / 2);
+        }
+
+
 
     }
-
 }
 
-   
-    
 
-    
+
+
+
+
+
 

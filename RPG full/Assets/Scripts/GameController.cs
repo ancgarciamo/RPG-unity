@@ -34,6 +34,8 @@ public class GameController : MonoBehaviour
     public void DefenderComando()
     {
         boton_de_defensa = true;
+        player.comandos_defensa(true);
+        bandera = false;
         
     }
 
@@ -58,7 +60,12 @@ public class GameController : MonoBehaviour
 
            if (bandera == true)
             {
-            boton_de_ataque = false;
+                
+                boton_de_ataque = false;
+                if (boton_de_defensa == false)
+                {
+                    player.comandos_defensa(false);
+                }
                 boton_ataque.SetActive(true);
                 boton_defensa.SetActive(true);
                 boton_objetos.SetActive(true);
@@ -74,7 +81,10 @@ public class GameController : MonoBehaviour
                 boton_objetos.SetActive(false);
                 int daño2 = player.takenDmg(enemy.attack());
                 vida_actual.text = player.vida() + "";
-                
+                if (boton_de_defensa == true)
+                {
+                    boton_de_defensa = false;
+                }
                 bandera = true;
             }
         }
