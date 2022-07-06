@@ -24,14 +24,29 @@ public class Character : MonoBehaviour
 
     }
 
-    public void valor_hp(int valor_adicional , int valor_a_actualizar)
+    public int takenDmg(int dmg)
     {
-        valor_a_actualizar = valor_a_actualizar - valor_adicional;
+        int currentHp = hp;
+        int finalDmg = dmg - ((this.def - 1) / 2);
+
+        this.hp = currentHp - finalDmg;
+
+        return finalDmg;
     }
-   
-    
+    public int attack()
+    {
+        return this.atk;
 
-    
+    }
+    public int vida()
+    {
+        return this.hp;
+    }
 
-   
 }
+
+   
+    
+
+    
+
