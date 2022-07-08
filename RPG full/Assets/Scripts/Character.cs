@@ -46,17 +46,18 @@ public class Character : MonoBehaviour
     {
         return this.vel;
     }
-    public void comandos_defensa(bool fase_actual)
+    public int comandos_defensa(bool fase_actual)
     {
+
         if (fase_actual == true)
         {
             this.def = this.def * 2;
         }
         else
         {
-            this.def = this.def * (1 / 2);
-        }   
-
+            this.def = this.def /2;
+        }
+        return this.def;
 
     }
     

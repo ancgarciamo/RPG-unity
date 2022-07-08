@@ -20,7 +20,7 @@ public class GameController : MonoBehaviour
     public bool bandera =true;
     public bool boton_de_ataque =false;
     public bool boton_de_defensa = false;
-    Character player = new Character(50000, 20, 100, 100, 100, 100, 30);
+    Character player = new Character(50000, 20, 100, 200, 100, 100, 30);
     Character enemy = new Character(2000, 10, 200, 50, 10, 0, 20);
 
     public void AtacarComando()
@@ -34,8 +34,10 @@ public class GameController : MonoBehaviour
     public void DefenderComando()
     {
         boton_de_defensa = true;
-        player.comandos_defensa(true);
+        int def1=player.comandos_defensa(true);
+        info_combate.text = "tu defensa ahora tiene un valor de " + def1;
         bandera = false;
+        
         
     }
 
@@ -64,7 +66,8 @@ public class GameController : MonoBehaviour
                 boton_de_ataque = false;
                 if (boton_de_defensa == true)
                 {
-                    player.comandos_defensa(false);
+                    int def2=player.comandos_defensa(false);
+                    info_combate.text = "tu defensa ahora tiene un valor de " + def2;
                 }
                 boton_de_defensa = false;
                 boton_ataque.SetActive(true);
