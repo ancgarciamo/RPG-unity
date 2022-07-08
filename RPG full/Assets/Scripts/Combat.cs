@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Combat : MonoBehaviour
 {
+
+    
     public void assign_atributes(Character e)
     {
         float x = Random.Range(0, 1);

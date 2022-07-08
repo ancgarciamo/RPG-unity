@@ -23,6 +23,9 @@ public class Character : MonoBehaviour
         this.vel = velocidad;
 
     }
+    
+    
+    
 
     public int takenDmg(int dmg)
     {

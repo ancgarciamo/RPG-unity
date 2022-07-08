@@ -25,6 +25,9 @@ public class GameController : MonoBehaviour
     Character player = new Character(50000, 20, 100, 200, 100, 100, 15);
     Character enemy = new Character(2000, 10, 200, 50, 10, 0, 20);
 
+    Combat ssss = new Combat();
+
+
     public void AtacarComando()
     {
         boton_de_ataque = true;
@@ -32,6 +35,7 @@ public class GameController : MonoBehaviour
         int daño1 = enemy.takenDmg(player.attack());
         info_combate.text = "le quitastes  " + daño1 + " puntos de vida al enemigo este ahora tiene " + enemy.vida() + "puntos de vida";
         bandera = false;
+        ssss.assign_atributes(player);
     }
     public void DefenderComando()
     {
@@ -101,6 +105,7 @@ public class GameController : MonoBehaviour
             info_combate.text="Juego terminado";
             }
         else {
+
             if (bandera==true){
                 fase_jugador();
             }
