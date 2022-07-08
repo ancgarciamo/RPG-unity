@@ -17,10 +17,12 @@ public class GameController : MonoBehaviour
     public GameObject boton_defensa;
     public GameObject boton_objetos;
     public GameObject boton_atras;
-    public bool bandera =true;
-    public bool boton_de_ataque =false;
-    public bool boton_de_defensa = false;
-    Character player = new Character(50000, 20, 100, 200, 100, 100, 30);
+    public GameObject boton_haste;
+    private bool bandera =true;
+    private bool boton_de_ataque =false;
+    private bool boton_de_defensa = false;
+    private bool boton_haste2=false;
+    Character player = new Character(50000, 20, 100, 200, 100, 100, 15);
     Character enemy = new Character(2000, 10, 200, 50, 10, 0, 20);
 
     public void AtacarComando()
@@ -40,6 +42,20 @@ public class GameController : MonoBehaviour
         
         
     }
+    public void HASTE()
+    {
+        if (boton_haste2 == false)
+        {
+            boton_haste2 = true;
+            player.haste_spell();
+            bandera = false;
+        }
+        else
+        {
+            info_combate.text = "ya has incrementado tu velocidad";
+        }
+    }
+        
 
     void Start()
     {
@@ -65,13 +81,16 @@ public class GameController : MonoBehaviour
 
     public void fase_enemigo()
     {
+        
         boton_ataque.SetActive(false);
         boton_defensa.SetActive(false);
         boton_objetos.SetActive(false);
         int daño2 = player.takenDmg(enemy.attack());
         vida_actual.text = player.vida() + "";
         bandera = true;
+        
     }
+
     
     void Update()
     {
@@ -82,31 +101,12 @@ public class GameController : MonoBehaviour
             info_combate.text="Juego terminado";
             }
         else {
-            if (player.velocidad() > enemy.velocidad())
-            {
-                if (bandera == true)
-                {
-                    fase_jugador();
-
-                }
-                else
-                {
-                    fase_enemigo();
-
-                }
+            if (bandera==true){
+                fase_jugador();
             }
             else
             {
-                if (bandera == false)
-                {
-                    fase_enemigo();
-
-                }
-                else
-                {
-                    fase_jugador();
-
-                }
+                fase_enemigo();
             }
            
         }
