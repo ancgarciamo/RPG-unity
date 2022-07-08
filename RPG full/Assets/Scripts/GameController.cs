@@ -49,6 +49,29 @@ public class GameController : MonoBehaviour
         boton_atras.SetActive(false);
     }
 
+    public void fase_jugador()
+    {
+        boton_de_ataque = false;
+        if (boton_de_defensa == true)
+        {
+            int def2 = player.comandos_defensa(false);
+            info_combate.text = "tu defensa ahora tiene un valor de " + def2;
+        }
+        boton_de_defensa = false;
+        boton_ataque.SetActive(true);
+        boton_defensa.SetActive(true);
+        boton_objetos.SetActive(true);
+    }
+
+    public void fase_enemigo()
+    {
+        boton_ataque.SetActive(false);
+        boton_defensa.SetActive(false);
+        boton_objetos.SetActive(false);
+        int daño2 = player.takenDmg(enemy.attack());
+        vida_actual.text = player.vida() + "";
+        bandera = true;
+    }
     
     void Update()
     {
@@ -58,40 +81,35 @@ public class GameController : MonoBehaviour
             {
             info_combate.text="Juego terminado";
             }
-        else { 
-
-           if (bandera == true)
+        else {
+            if (player.velocidad() > enemy.velocidad())
             {
-                
-                boton_de_ataque = false;
-                if (boton_de_defensa == true)
+                if (bandera == true)
                 {
-                    int def2=player.comandos_defensa(false);
-                    info_combate.text = "tu defensa ahora tiene un valor de " + def2;
+                    fase_jugador();
+
                 }
-                boton_de_defensa = false;
-                boton_ataque.SetActive(true);
-                boton_defensa.SetActive(true);
-                boton_objetos.SetActive(true);
-                
-                    
-                
+                else
+                {
+                    fase_enemigo();
+
+                }
             }
             else
             {
-                
-                boton_ataque.SetActive(false);
-                boton_defensa.SetActive(false);
-                boton_objetos.SetActive(false);
-                int daño2 = player.takenDmg(enemy.attack());
-                vida_actual.text = player.vida() + "";
-                
-                bandera = true;
+                if (bandera == false)
+                {
+                    fase_enemigo();
+
+                }
+                else
+                {
+                    fase_jugador();
+
+                }
             }
+           
         }
-
-
-
     }
-    }
+ }
 

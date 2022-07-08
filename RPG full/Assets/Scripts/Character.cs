@@ -60,7 +60,12 @@ public class Character : MonoBehaviour
         return this.def;
 
     }
-    
+
+    public void haste_spell()
+    {
+        this.vel = this.vel * 2;
+    }
+
 }
 
 
