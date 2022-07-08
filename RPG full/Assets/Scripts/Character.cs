@@ -55,11 +55,11 @@ public class Character : MonoBehaviour
         else
         {
             this.def = this.def * (1 / 2);
-        }
-
+        }   
 
 
     }
+    
 }
 
 
