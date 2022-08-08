@@ -22,10 +22,11 @@ public class GameController : MonoBehaviour
     private bool boton_de_ataque =false;
     private bool boton_de_defensa = false;
     private bool boton_haste2=false;
-    Character player = new Character(50000, 20, 100, 200, 100, 100, 15);
+    Character player = new Character(2800, 20, 100, 200, 100, 100, 30);
     Character enemy = new Character(2000, 10, 200, 50, 10, 0, 20);
     public int contador = 0;
-    public bool turno_h = true;
+    public int contador2 = 0;
+    public bool turno = true;
 
 
     void Start()
@@ -36,6 +37,28 @@ public class GameController : MonoBehaviour
         boton_atras.SetActive(false);
         
     }
+    public bool turno_ataque()
+    {
+        bool bandera;
+        if (contador2 == 0)
+        {
+            contador2 = contador2 + 1;
+            bandera = true;
+        }
+        else if (contador2 > 1)
+        {
+            contador2 = 0;
+            bandera = false;
+        }
+        else
+        {
+            bandera = false;
+        }
+        return bandera;
+
+
+    }
+
 
 
     public void AtacarComando()
@@ -45,8 +68,10 @@ public class GameController : MonoBehaviour
         int daño1 = enemy.takenDmg(player.attack());
         info_combate.text = "le quitastes  " + daño1 + " puntos de vida al enemigo este ahora tiene " + enemy.vida() + "puntos de vida";
         bandera = false;
+        //turno_ataque();
         contador = 0;
-        
+        if (contador2 == 1) { turno = false; }
+
 
     }
     public void DefenderComando()
@@ -55,8 +80,10 @@ public class GameController : MonoBehaviour
         int def1=player.comandos_defensa(true);
         info_combate.text = "tu defensa ahora tiene un valor de " + def1;
         bandera = false;
+        //turno_ataque();
         contador = 0;
-        
+        if (contador2 == 1) { turno = false; }
+
 
 
 
@@ -67,17 +94,20 @@ public class GameController : MonoBehaviour
         {
             boton_haste2 = true;
             player.haste_spell();
+            //turno_ataque();
             bandera = false;
             contador = 0;
-            turno_h = false;
+            if (contador2 == 1) { turno = false; }
+
+            
             
 
         }
         else
         {
             info_combate.text = "ya has incrementado tu velocidad";
-            contador = 0;
             
+
 
         }
     }
@@ -111,6 +141,7 @@ public class GameController : MonoBehaviour
         
     }
 
+
     
     void Update()
     {
@@ -124,10 +155,19 @@ public class GameController : MonoBehaviour
             }
         else {
 
-            if (dif > 0 || contador==1 && turno_h==true)
+            if ((dif > 0 || contador ==1) && turno==true)
             {
                 
                 bandera = true;
+                if (dif > 0)
+                {
+                    contador2 = 1;
+                }
+                else
+                {
+                    contador2 = 0;
+                }
+                
                 
                 
             }
@@ -147,8 +187,10 @@ public class GameController : MonoBehaviour
             else
             {
                     fase_enemigo();
-
                 contador = 1;
+                turno = true;
+
+                
                 
                     
                 
