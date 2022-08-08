@@ -24,8 +24,18 @@ public class GameController : MonoBehaviour
     private bool boton_haste2=false;
     Character player = new Character(50000, 20, 100, 200, 100, 100, 15);
     Character enemy = new Character(2000, 10, 200, 50, 10, 0, 20);
+    public int contador = 0;
+    public bool turno_h = true;
 
-    Combat ssss = new Combat();
+
+    void Start()
+    {
+
+        vida_actual.text = player.vida() + "";
+        vida_maxima.text = player.vida() + " / ";
+        boton_atras.SetActive(false);
+        
+    }
 
 
     public void AtacarComando()
@@ -35,7 +45,9 @@ public class GameController : MonoBehaviour
         int daño1 = enemy.takenDmg(player.attack());
         info_combate.text = "le quitastes  " + daño1 + " puntos de vida al enemigo este ahora tiene " + enemy.vida() + "puntos de vida";
         bandera = false;
-        ssss.assign_atributes(player);
+        contador = 0;
+        
+
     }
     public void DefenderComando()
     {
@@ -43,8 +55,11 @@ public class GameController : MonoBehaviour
         int def1=player.comandos_defensa(true);
         info_combate.text = "tu defensa ahora tiene un valor de " + def1;
         bandera = false;
+        contador = 0;
         
-        
+
+
+
     }
     public void HASTE()
     {
@@ -53,21 +68,22 @@ public class GameController : MonoBehaviour
             boton_haste2 = true;
             player.haste_spell();
             bandera = false;
+            contador = 0;
+            turno_h = false;
+            
+
         }
         else
         {
             info_combate.text = "ya has incrementado tu velocidad";
+            contador = 0;
+            
+
         }
     }
         
 
-    void Start()
-    {
-        
-        vida_actual.text = player.vida()+"";
-        vida_maxima.text = player.vida() + " / ";
-        boton_atras.SetActive(false);
-    }
+    
 
     public void fase_jugador()
     {
@@ -98,21 +114,49 @@ public class GameController : MonoBehaviour
     
     void Update()
     {
-        
 
+        int vel_p = player.velocidad();
+        int vel_e = enemy.velocidad();
+        int dif = vel_p - vel_e;
         if (player.vida() <= 0 || enemy.vida() <= 0)
             {
             info_combate.text="Juego terminado";
             }
         else {
 
-            if (bandera==true){
-                fase_jugador();
+            if (dif > 0 || contador==1 && turno_h==true)
+            {
+                
+                bandera = true;
+                
+                
             }
             else
             {
-                fase_enemigo();
+                
+                bandera = false;
+                
             }
+
+
+            if (bandera == true)
+                {
+                    fase_jugador();
+                    
+                }
+            else
+            {
+                    fase_enemigo();
+
+                contador = 1;
+                
+                    
+                
+                
+            }
+           
+
+           
            
         }
     }
